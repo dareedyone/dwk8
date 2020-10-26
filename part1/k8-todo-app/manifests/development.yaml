@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8todoapp-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8todoapp
+  template:
+    metadata:
+      labels:
+        app: k8todoapp
+    spec:
+      containers:
+        - name: k8todoapp
+          image: dareedyone/k8-todo-app
