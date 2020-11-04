@@ -4,9 +4,9 @@ metadata:
   name: randomstringgen-ing
 spec:
   rules:
-  - http:
-      paths:
-      - path: /
-        backend:
-          serviceName: randomstringgen-svc
-          servicePort: 2345
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: randomstringgen-svc
+              servicePort: 2345
