@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const path = require("path");
 const fs = require("fs");
 const filePath = path.join("/", "usr", "src", "app", "files", "logs.txt");
+// const filePath = "./files/logs.txt";
 
 const randomString = () => Math.random().toString(36).slice(2);
 const randomStringGen = () => {

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: randomstringgen-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: randomstringgen
+  template:
+    metadata:
+      labels:
+        app: randomstringgen
+    spec:
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-claim
+      containers:
+        - name: writter-image
+          image: dareedyone/writter-ms
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files
+        - name: reader-image
+          image: dareedyone/reader-ms
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files
