@@ -11,4 +11,4 @@ spec:
       nodePort: 30080
       protocol: TCP
       port: 1234
-      targetPort: 3001
+      targetPort: 3000

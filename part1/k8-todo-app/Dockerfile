@@ -1,8 +1,8 @@
 FROM node:14-alpine
 WORKDIR /usr/src/app/
 COPY . .
-RUN chown node "$(pwd)"
+RUN chown -R node "$(pwd)"
 USER node
 RUN npm i
-EXPOSE 3001
+EXPOSE 3000
 CMD node .

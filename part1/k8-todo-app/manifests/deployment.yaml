@@ -12,6 +12,24 @@ spec:
       labels:
         app: k8todoapp
     spec:
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-claim
       containers:
         - name: k8todoapp
           image: dareedyone/k8-todo-app
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files
+      initContainers:
+        - name: take-data-dir-ownership
+          image: node:14-alpine
+          command:
+            - chown
+            - -R
+            - node
+            - /usr/src/app/files
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files
