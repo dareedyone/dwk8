@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8todoapp-svc 
+  name: k8todoapp-svc
 spec:
   type: ClusterIP
   selector:
@@ -9,4 +9,4 @@ spec:
   ports:
     - port: 1234
       protocol: TCP
-      targetPort: 3001
+      targetPort: 3000

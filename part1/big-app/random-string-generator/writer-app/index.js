@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+//doesn't need a port
+// const port = process.env.PORT || 3000;
 const path = require("path");
 const fs = require("fs");
+const axios = require("axios");
 const filePath = path.join("/", "usr", "src", "app", "files", "logs.txt");
 // const filePath = "./files/logs.txt";
 
@@ -24,8 +26,10 @@ const fileAlreadyExists = async () =>
 
 // app.get("/", (req, res) => {
 // res.send(`<h4>${randomStringGen()}</h4>`)
-(function iife() {
+(async function iife() {
 	console.log("the promise", fileAlreadyExists);
+	const pings = await axios.get("http://pingpongapp-svc:1234");
+	console.log("pings is ", pings.data);
 	setTimeout(async () => {
 		if (!(await fileAlreadyExists())) {
 			fs.open(filePath, "w", function (err, file) {
@@ -33,14 +37,18 @@ const fileAlreadyExists = async () =>
 			});
 		} else {
 			console.log("append runs");
-			fs.appendFile(filePath, `${randomStringGen()}\n`, (err) => {
-				if (err) console.log("err ins", err);
-			});
+			fs.appendFile(
+				filePath,
+				`${randomStringGen()}\n${pings.data}\n`,
+				(err) => {
+					if (err) console.log("err ins", err);
+				}
+			);
 		}
 		iife();
 	}, 5000);
 })();
-return;
+
 // setInterval(async () => {
 //     if (!await fileAlreadyExists) {
 //         fs.appendFile('logs.txt', `${randomStringGen()}\n`, err => {
@@ -53,6 +61,6 @@ return;
 //     }
 // }, 5000);
 // });
-app.listen(port, () => {
-	console.log(`server listeninng on port ${port}`);
-});
+// app.listen(port, () => {
+// 	console.log(`server listeninng on port ${port}`);
+// });

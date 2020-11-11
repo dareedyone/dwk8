@@ -12,24 +12,24 @@ spec:
       labels:
         app: pingpongapp
     spec:
-      volumes:
-        - name: shared-volume
-          persistentVolumeClaim:
-            claimName: shared-claim
+      # volumes:
+      #   - name: shared-volume
+      #     persistentVolumeClaim:
+      #       claimName: shared-claim
       containers:
         - name: pingpongapp
           image: dareedyone/ping-pong-app
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /usr/src/app/files
-      initContainers:
-        - name: take-data-dir-ownership
-          image: node:14-alpine
-          command:
-            - chown
-            - -R
-            - node
-            - /usr/src/app/files
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /usr/src/app/files
+      #     volumeMounts:
+      #       - name: shared-volume
+      #         mountPath: /usr/src/app/files
+      # initContainers:
+      #   - name: take-data-dir-ownership
+      #     image: node:14-alpine
+      #     command:
+      #       - chown
+      #       - -R
+      #       - node
+      #       - /usr/src/app/files
+      #     volumeMounts:
+      #       - name: shared-volume
+      #         mountPath: /usr/src/app/files

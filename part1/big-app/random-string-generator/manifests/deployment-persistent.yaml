@@ -27,3 +27,14 @@ spec:
           volumeMounts:
             - name: shared-volume
               mountPath: /usr/src/app/files
+      initContainers:
+        - name: take-data-dir-ownership
+          image: node:14-alpine
+          command:
+            - chown
+            - -R
+            - node
+            - /usr/src/app/files
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files
