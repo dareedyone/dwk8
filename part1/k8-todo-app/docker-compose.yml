@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  backend:
+    image: dareedyone/k8todo-backend
+    build: ./backend
+    ports:
+      - 4000:4000
+    container_name: "k8todo-backend"
+
+  frontend:
+    image: dareedyone/k8todo-frontend
+    build: ./frontend
+    environment:
+      - GRAPHQL_URL=http://backend:4000
+    ports:
+      - 3000:3000
+    container_name: "k8todo-frontend"

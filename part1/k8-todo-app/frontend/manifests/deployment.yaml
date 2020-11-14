@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8todofrontend-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8todo-frontend
+  template:
+    metadata:
+      labels:
+        app: k8todo-frontend
+    spec:
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-claim
+      containers:
+        - name: k8todo-frontend
+          image: dareedyone/k8todo-frontend
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files
+      initContainers:
+        - name: take-data-dir-ownership
+          image: node:14-alpine
+          command:
+            - chown
+            - -R
+            - node
+            - /usr/src/app/files
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/src/app/files

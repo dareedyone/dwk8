@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8todoapp-dep
+  name: k8todobackend-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: k8todoapp
+      app: k8todo-backend
   template:
     metadata:
       labels:
-        app: k8todoapp
+        app: k8todo-backend
     spec:
       volumes:
         - name: shared-volume
           persistentVolumeClaim:
             claimName: shared-claim
       containers:
-        - name: k8todoapp
-          image: dareedyone/k8-todo-app
+        - name: k8todo-backend
+          image: dareedyone/k8todo-backend
           volumeMounts:
             - name: shared-volume
               mountPath: /usr/src/app/files
