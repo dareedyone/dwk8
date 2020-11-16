@@ -1,7 +1,6 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: "bigapp-namespace"
   name: bigapp-pv
 spec:
   storageClassName: manual
