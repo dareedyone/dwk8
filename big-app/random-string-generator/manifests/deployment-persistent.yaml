@@ -20,6 +20,12 @@ spec:
       containers:
         - name: writter-image
           image: dareedyone/writter-ms
+          env:
+            - name: MESSAGE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: bigapp-configmap
+                  key: MESSAGE
           volumeMounts:
             - name: shared-volume
               mountPath: /usr/src/app/files

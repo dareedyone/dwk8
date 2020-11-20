@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
+const message = process.env.MESSAGE || "env not found";
 //doesn't need a port
 // const port = process.env.PORT || 3000;
 const path = require("path");
@@ -7,7 +9,7 @@ const fs = require("fs");
 const axios = require("axios");
 const filePath = path.join("/", "usr", "src", "app", "files", "logs.txt");
 // const filePath = "./files/logs.txt";
-
+console.log("env-msg", message);
 const randomString = () => Math.random().toString(36).slice(2);
 const randomStringGen = () => {
 	const timestamp = new Date().toISOString();
@@ -39,7 +41,7 @@ const fileAlreadyExists = async () =>
 			console.log("append runs");
 			fs.appendFile(
 				filePath,
-				`${randomStringGen()}\n${pings.data}\n`,
+				`${message}\n${randomStringGen()}\n${pings.data}\n`,
 				(err) => {
 					if (err) console.log("err ins", err);
 				}
